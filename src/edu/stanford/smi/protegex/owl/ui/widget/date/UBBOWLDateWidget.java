@@ -1,4 +1,4 @@
-package edu.stanford.smi.protegex.widget.date;
+package edu.stanford.smi.protegex.owl.ui.widget.date;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -34,14 +34,13 @@ import edu.stanford.smi.protegex.owl.ui.widget.AbstractPropertyWidget;
 import java.util.logging.Level;
 
 /**
- * @author Hemed Ali, Universitetes i Bergen.
- * 
+ * @author Hemed Ali, Universitetsbiblioteket i Bergen.
  * <br>
- * Description: This plugin is a clone of OWLDateWidget from the Protege 3.5 with some custom modifications.
- * This widget copies the current date into the specified slot thereby marking a "creation date".
- * 
+ * Description: This plugin is a clone of OWLDateWidget from the Protege 3.5 owl-plugin with some custom modifications.
+ * This widget automatically copies the current date into the specified slot when the instance is created thereby marking a "creation date". 
+ * Afterwards, the date can also be manually modified.
  */
-public class UBBDateWidget extends AbstractPropertyWidget {
+public class UBBOWLDateWidget extends AbstractPropertyWidget {
 
     private JDateChooser dateChooser;
     private LabeledComponent lc;
@@ -134,10 +133,7 @@ public class UBBDateWidget extends AbstractPropertyWidget {
         }
         return date;
     }
-
-
-
-
+    
 
     private void setDateChooserValue() {
         RDFResource resource = getEditedResource();
@@ -187,21 +183,17 @@ public class UBBDateWidget extends AbstractPropertyWidget {
         enabledCompListeners();
     }
 
-
-
-
+        
     @Override
 	public void setValues(Collection values) {
             
         String dateString = (String)CollectionUtilities.getFirstItem(values);
         
-        if(dateString == null)
-        {
-          this.setPropertyValue(new Date());
+        if(dateString == null){
+           setPropertyValue(new Date());
         }
-        else
-        {
-           super.setValues(values);
+        else{
+          super.setValues(values);
         }
         
          updateComponents();
@@ -220,14 +212,12 @@ public class UBBDateWidget extends AbstractPropertyWidget {
             boolean value = resource.getPropertyValue(property) != null;
             setAction.setEnabled(isEditable && !value);
             deleteAction.setEnabled(isEditable && value);
-            //dateChooser.setEnabled(isEditable && value);
             enableDateChooser(isEditable && value);
             lc.revalidate();
         }
         else {
             setAction.setEnabled(false);
             deleteAction.setEnabled(false);
-            //dateChooser.setEnabled(false);
             enableDateChooser(false);
         }
 
@@ -268,10 +258,9 @@ public class UBBDateWidget extends AbstractPropertyWidget {
     protected void disableCompListeners() {
     	dateChooser.removePropertyChangeListener(propertyChangeListener);
     }
-      
-    
+       
     //Always display the widget.
     public static boolean isSuitable(Cls cls, Slot slot, Facet facet) {
-       return true; //OWLWidgetMapper.isSuitable(UBBDateWidget.class, cls, slot);
+       return true; //OWLWidgetMapper.isSuitable(UBBOWLDateWidget.class, cls, slot);
     }
 }
