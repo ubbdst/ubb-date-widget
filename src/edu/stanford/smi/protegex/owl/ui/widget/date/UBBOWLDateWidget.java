@@ -45,7 +45,7 @@ public class UBBOWLDateWidget extends AbstractPropertyWidget {
     private JDateChooser dateChooser;
     private LabeledComponent lc;
     
-    
+   //This method is called first to initialize the plugin.
    @Override
     public void initialize() {
         setLayout(new BorderLayout());     
@@ -61,6 +61,7 @@ public class UBBOWLDateWidget extends AbstractPropertyWidget {
 
     }
 
+   //A listener to update values if change in date is triggered.
     private final PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
         @Override
         public void propertyChange(PropertyChangeEvent evt) {
@@ -70,6 +71,8 @@ public class UBBOWLDateWidget extends AbstractPropertyWidget {
         }
     };
 
+   //A method to delete a date value when delete icon is clicked. 
+   //Now, when delete button is clicked, the date is set to a current date. See setValues(Collection col) method.
     private final Action deleteAction = new AbstractAction("Delete value", OWLIcons.getDeleteIcon()) {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -183,7 +186,9 @@ public class UBBOWLDateWidget extends AbstractPropertyWidget {
         enabledCompListeners();
     }
 
-        
+   //A method that triggers a change of a slot value and update the instance accordingly. 
+   //If the slot value is null (for example, when the instance is created),
+   //then the slot-value is set to be today's date. 
     @Override
 	public void setValues(Collection values) {
             
